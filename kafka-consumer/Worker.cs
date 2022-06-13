@@ -22,7 +22,7 @@ namespace kafka_consumer
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Task.Delay(1000, stoppingToken);
-                _kafkaService.consume();
+                _kafkaService.consume(stoppingToken);
             }
         }
     }

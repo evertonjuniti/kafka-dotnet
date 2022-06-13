@@ -12,7 +12,6 @@ namespace kafka_consumer.Services
         private readonly ILogger<Worker> _logger;
         private readonly IConfiguration Configuration;
         private ConsumerConfig _config;
-        private CancellationTokenSource _cts;
 
         public KafkaService(ILogger<Worker> logger, IConfiguration configuration)
         {
@@ -25,15 +24,9 @@ namespace kafka_consumer.Services
                 AutoOffsetReset = AutoOffsetReset.Earliest,
                 EnableAutoOffsetStore = false
             };
-            _cts = new CancellationTokenSource();
-            Console.CancelKeyPress += (_, e) =>
-            {
-                e.Cancel = true;
-                _cts.Cancel();
-            };
         }
 
-        public void consume()
+        public void consume(CancellationToken cancellationToken)
         {
             _logger.LogInformation($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} - " +
                 $"Iniciando leitura do tópico: {Configuration["TopicName"]}");
@@ -49,7 +42,7 @@ namespace kafka_consumer.Services
                 {
                     while (true)
                     {
-                        resposta = consumer.Consume(_cts.Token);
+                        resposta = consumer.Consume(cancellationToken);
                         _logger.LogInformation($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} - " +
                             $"Mensagem: {resposta.Message.Value}, " +
                         $"offset: {resposta.Offset.Value}, " +
