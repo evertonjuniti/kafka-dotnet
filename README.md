@@ -14,6 +14,8 @@ Para isto divido esta PoC em algumas etapas, sendo:
 3. Leitura de mensagens através de um aplicativo console em .Net, específico para atuar como consumer
 4. Pontos importantes dessa PoC
 
+Referência: [https://docs.confluent.io/kafka-clients/dotnet/current/overview.html](https://docs.confluent.io/kafka-clients/dotnet/current/overview.html)
+
 ## Subida do cluster Kafka
 
 Utilize a definição do script Docker Compose presente na pasta "kafka-cluster" e o seguinte comando para subir o cluster Kafka com 3 nós (lembre-se de executar este comando dentro da pasta "kafka-cluster"):
