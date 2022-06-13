@@ -99,4 +99,6 @@ Essa linha deveria estar no final de todo o fluxo da sua aplicação, antes de t
 
 Outro ponto importante é que no meu exemplo eu decidir "fechar" o consumer, mas você pode controlar tudo isso da forma que achar melhor. Mas eu acredito que da forma que eu fiz, apesar de bastante "artesanal", replica o comportamento que haveria na produção, ou seja, algo não esperado acontece e você encerra o consumer, faz alguma outra coisa (log, por exemplo) e abre o consumer novamente para tentar mais uma vez (depois de x segundos, talvez).
 
-Conclusão: com apenas 2 linhas de código, você evita um overengineering da sua solução (evita-se incluir outros mecanismos como filas, cache, etc) e deixa para a própria aplicação a gestão do offset para maior controle de quando ir pra frente ou não.
+## Conclusão
+
+Com apenas 2 linhas de código, você evita um overengineering da sua solução (evita-se incluir outros mecanismos como filas, cache, etc) e deixa para a própria aplicação a gestão do offset para maior controle de quando ir pra frente ou não.
