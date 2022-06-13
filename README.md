@@ -32,6 +32,12 @@ Todos esses containers estarão na mesma rede, chamada "kafka-network". Isso é 
 
 ### Producer
 
+`docker build -t evertonjuniti/kafka-producer:latest .`
 
+`docker run --name kafka-producer --network kafka-network -p 5000:80 -d evertonjuniti/kafka-producer:latest`
 
 ### Consumer
+
+`docker build -t evertonjuniti/kafka-consumer:latest .`
+
+`docker compose up -d`
