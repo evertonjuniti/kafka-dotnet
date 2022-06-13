@@ -39,7 +39,7 @@ Para os testes que faremos à seguir, peço criar um tópico chamado "teste" (se
 
 ## Producer
 
-Na pasta kafka-producer há uma aplicação em .Net Core com uma interface de API para que você consiga postar quantas mensagens quer inserir no tópico "teste".
+Na pasta "kafka-producer" há uma aplicação em .Net Core com uma interface de API para que você consiga postar quantas mensagens quer inserir no tópico "teste".
 
 Nesta pasta há uma collection do Postman pronta para que você possa fazer esta requisição, o nome da collection é: "kafka-dotnet.postman_collection.json".
 
@@ -49,7 +49,7 @@ Este projeto é muito simples, ele gera um GUID novo para cada mensagem, só par
 
 Não é garantido que o Kafka consiga fazer o round-robin das mensagens para as partições, pois é o Kafka quem gerencia. Não há nenhuma configuração na aplicação para jogar tudo para uma única partição.
 
-Se você quiser subir esta aplicação no Docker também, você pode fazer o build com o seguinte comando:
+Se você quiser subir esta aplicação no Docker também, você pode fazer o build com o seguinte comando (esteja dentro da pasta "kafka-producer"):
 
 `docker build -t evertonjuniti/kafka-producer:latest .`
 
@@ -63,7 +63,7 @@ Por default é exposta a porta 80 da aplicação, pois eu não indiquei expor ou
 
 ## Consumer
 
-Na pasta kafka-consumer há uma aplicação em .Net Core que é um worker service simples que fica consumindo mensagens do tópico "teste".
+Na pasta "kafka-consumer" há uma aplicação em .Net Core que é um worker service simples que fica consumindo mensagens do tópico "teste".
 
 Importante: caso você mude o nome do tópico ou o nome dos nós do Kafka, atente-se a atualizar o appsettings.json e appsettings.Development.json, pois é lá que estas informações estão parametrizadas.
 
@@ -71,7 +71,7 @@ Este projeto é muito simples, ele vai consumindo as mensagens do tópico e prop
 
 Essa é a resiliência necessária para que, em caso de algum problema na sua aplicação, que você consiga ler novamente as mensagens, sem a necessidade de uso de alguma tecnologia extra para isso (como uma fila,por exemplo).
 
-Se você quiser subir esta aplicação no Docker também, você pode fazer o build com o seguinte comando:
+Se você quiser subir esta aplicação no Docker também, você pode fazer o build com o seguinte comando (esteja dentro da pasta "kafka-consumer"):
 
 `docker build -t evertonjuniti/kafka-consumer:latest .`
 
