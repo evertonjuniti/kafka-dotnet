@@ -14,7 +14,7 @@ Para isto divido esta PoC em algumas etapas, sendo:
 3. Leitura de mensagens através de um aplicativo console em .Net, específico para atuar como consumer
 4. Pontos importantes dessa PoC
 
-### Subida do cluster Kafka
+## Subida do cluster Kafka
 
 Utilize a definição do script Docker Compose presente na pasta "kafka-cluster" e o seguinte comando para subir o cluster Kafka com 3 nós (lembre-se de executar este comando dentro da pasta "kafka-cluster"):
 
@@ -35,7 +35,7 @@ Você poderá abrir o kafka-ui que é uma interface para gerenciar os tópicos c
 
 Para os testes que faremos à seguir, peço criar um tópico chamado "teste" (sem as aspas duplas) com 6 partições, o restante das configurações pode manter os defaults.
 
-### Producer
+## Producer
 
 Na pasta kafka-producer há uma aplicação em .Net Core com uma interface de API para que você consiga postar quantas mensagens quer inserir no tópico "teste".
 
@@ -59,7 +59,7 @@ E subir um container simples dessa imagem com o seguinte comando:
 
 Por default é exposta a porta 80 da aplicação, pois eu não indiquei expor outra porta no Dockerfile, mas você pode mudar isso, só terá que apagar a imagem recém criada e fazer um novo build.
 
-### Consumer
+## Consumer
 
 Na pasta kafka-consumer há uma aplicação em .Net Core que é um worker service simples que fica consumindo mensagens do tópico "teste".
 
@@ -79,7 +79,7 @@ Eu deixei criado um arquivo Docker Compose nesta pasta que cria 3 containers des
 
 `docker compose up -d`
 
-### Pontos importantes
+## Pontos importantes
 
 Obviamente que você poderá implementar as estratégias que julgar necessário para implementar a resiliência da sua aplicação, mas aqui é como se você estivesse dando um commit a cada rodada com sucesso do fluxo por inteiro que sua aplicação venha a fazer.
 
@@ -99,6 +99,6 @@ Essa linha deveria estar no final de todo o fluxo da sua aplicação, antes de t
 
 Outro ponto importante é que no meu exemplo eu decidir "fechar" o consumer, mas você pode controlar tudo isso da forma que achar melhor. Mas eu acredito que da forma que eu fiz, apesar de bastante "artesanal", replica o comportamento que haveria na produção, ou seja, algo não esperado acontece e você encerra o consumer, faz alguma outra coisa (log, por exemplo) e abre o consumer novamente para tentar mais uma vez (depois de x segundos, talvez).
 
-## Conclusão
+### Conclusão
 
 Com apenas 2 linhas de código, você evita um overengineering da sua solução (evita-se incluir outros mecanismos como filas, cache, etc) e deixa para a própria aplicação a gestão do offset para maior controle de quando ir pra frente ou não.
