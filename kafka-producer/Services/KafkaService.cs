@@ -27,12 +27,12 @@ namespace kafka_producer.Services
 
         public void produce(ref Pedido pedido)
         {
-            using (var producer = new ProducerBuilder<Null, string>(_config).Build())
+            using (var producer = new ProducerBuilder<string, string>(_config).Build())
             {
                 for (int indice = 1; indice <= pedido.Mensagens; indice++)
                 {
-                    var resposta = producer.ProduceAsync(Configuration["TopicName"], new Message<Null, string> 
-                    { Value=Guid.NewGuid().ToString() });
+                    var resposta = producer.ProduceAsync(Configuration["TopicName"], new Message<string, string>
+                    { Key = Guid.NewGuid().ToString(), Value = Guid.NewGuid().ToString() });
 
                     resposta.ContinueWith(task => {
                         if (task.IsFaulted)
@@ -40,7 +40,9 @@ namespace kafka_producer.Services
                                 $"Erro ao produzir mensagem.");
                         else
                             _logger.LogInformation($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} - " +
-                                $"Mensagem escrita para o offset: {task.Result.Offset}, " +
+                                $"Chave: {task.Result.Message.Key}, " + 
+                                $"Mensagem: {task.Result.Message.Value}, " + 
+                                $"offset: {task.Result.Offset}, " +
                                 $"partition: {task.Result.Partition}");
                     });
                 }

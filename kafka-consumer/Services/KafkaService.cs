@@ -33,10 +33,10 @@ namespace kafka_consumer.Services
 
             short mensagensParaLer = 5;
 
-            using (IConsumer<Ignore, string> consumer = new ConsumerBuilder<Ignore, string>(_config).Build())
+            using (IConsumer<string, string> consumer = new ConsumerBuilder<string, string>(_config).Build())
             {
                 consumer.Subscribe(Configuration["TopicName"]);
-                ConsumeResult<Ignore, string> resposta = null;
+                ConsumeResult<string, string> resposta = null;
 
                 try
                 {
@@ -44,7 +44,8 @@ namespace kafka_consumer.Services
                     {
                         resposta = consumer.Consume(cancellationToken);
                         _logger.LogInformation($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} - " +
-                            $"Mensagem: {resposta.Message.Value}, " +
+                        $"Chave: {resposta.Message.Key}, " +
+                        $"Mensagem: {resposta.Message.Value}, " +
                         $"offset: {resposta.Offset.Value}, " +
                         $"partition: {resposta.Partition.Value}");
 
